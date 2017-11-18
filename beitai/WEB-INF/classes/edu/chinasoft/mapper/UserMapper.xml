@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.chinasoft.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="edu.chinasoft.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_sex" property="userSex" jdbcType="CHAR" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_repassword" property="userRepassword" jdbcType="VARCHAR" />
+    <result column="user_orgnize" property="userOrgnize" jdbcType="VARCHAR" />
+    <result column="user_state" property="userState" jdbcType="VARCHAR" />
+    <result column="user_identify" property="userIdentify" jdbcType="VARCHAR" />
+    <result column="user_phonecord" property="userPhonecord" jdbcType="INTEGER" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, user_sex, user_account, user_password, user_repassword, user_orgnize, user_state, 
+    user_identify, user_phonecord, user_email, user_role
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.chinasoft.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.chinasoft.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.chinasoft.pojo.User" >
+    insert into user (user_id, user_sex, user_account, 
+      user_password, user_repassword, user_orgnize, 
+      user_state, user_identify, user_phonecord, 
+      user_email, user_role)
+    values (#{userId,jdbcType=INTEGER}, #{userSex,jdbcType=CHAR}, #{userAccount,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userRepassword,jdbcType=VARCHAR}, #{userOrgnize,jdbcType=VARCHAR}, 
+      #{userState,jdbcType=VARCHAR}, #{userIdentify,jdbcType=VARCHAR}, #{userPhonecord,jdbcType=INTEGER}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.chinasoft.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userRepassword != null" >
+        user_repassword,
+      </if>
+      <if test="userOrgnize != null" >
+        user_orgnize,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="userIdentify != null" >
+        user_identify,
+      </if>
+      <if test="userPhonecord != null" >
+        user_phonecord,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userRepassword != null" >
+        #{userRepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrgnize != null" >
+        #{userOrgnize,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentify != null" >
+        #{userIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhonecord != null" >
+        #{userPhonecord,jdbcType=INTEGER},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.chinasoft.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userSex != null" >
+        user_sex = #{record.userSex,jdbcType=CHAR},
+      </if>
+      <if test="record.userAccount != null" >
+        user_account = #{record.userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null" >
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRepassword != null" >
+        user_repassword = #{record.userRepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userOrgnize != null" >
+        user_orgnize = #{record.userOrgnize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userState != null" >
+        user_state = #{record.userState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userIdentify != null" >
+        user_identify = #{record.userIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhonecord != null" >
+        user_phonecord = #{record.userPhonecord,jdbcType=INTEGER},
+      </if>
+      <if test="record.userEmail != null" >
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRole != null" >
+        user_role = #{record.userRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_sex = #{record.userSex,jdbcType=CHAR},
+      user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_repassword = #{record.userRepassword,jdbcType=VARCHAR},
+      user_orgnize = #{record.userOrgnize,jdbcType=VARCHAR},
+      user_state = #{record.userState,jdbcType=VARCHAR},
+      user_identify = #{record.userIdentify,jdbcType=VARCHAR},
+      user_phonecord = #{record.userPhonecord,jdbcType=INTEGER},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_role = #{record.userRole,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.chinasoft.pojo.User" >
+    update user
+    <set >
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userRepassword != null" >
+        user_repassword = #{userRepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrgnize != null" >
+        user_orgnize = #{userOrgnize,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentify != null" >
+        user_identify = #{userIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhonecord != null" >
+        user_phonecord = #{userPhonecord,jdbcType=INTEGER},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+   <update id="updateUserByUserId" parameterType="java.lang.Integer">
+  UPDATE `user` SET user_sex=#{userSex},
+   user_account=#{userAccount},
+   user_password=#{userPassword},
+   user_repassword=#{userRepassword},
+   user_orgnize=#{userOrgnize},
+   user_state=#{userState},
+   user_identify=#{userIdentify},
+   user_phonecord=#{userPhonecord}, 
+   user_email=#{userEmail} , 
+   user_role=#{userRole} 
+   WHERE user_id=#{userId}
+   
+   </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="edu.chinasoft.pojo.User" >
+    update user
+    set user_sex = #{userSex,jdbcType=CHAR},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_repassword = #{userRepassword,jdbcType=VARCHAR},
+      user_orgnize = #{userOrgnize,jdbcType=VARCHAR},
+      user_state = #{userState,jdbcType=VARCHAR},
+      user_identify = #{userIdentify,jdbcType=VARCHAR},
+      user_phonecord = #{userPhonecord,jdbcType=INTEGER},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

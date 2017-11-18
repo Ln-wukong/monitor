@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.chinasoft.mapper.PageMapper" >
+  <resultMap id="BaseResultMap" type="edu.chinasoft.pojo.Page" >
+    <id column="page_id" property="pageId" jdbcType="INTEGER" />
+    <result column="page_address" property="pageAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    page_id, page_address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.chinasoft.pojo.PageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from page
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from page
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.chinasoft.pojo.PageExample" >
+    delete from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.chinasoft.pojo.Page" >
+    insert into page (page_id, page_address)
+    values (#{pageId,jdbcType=INTEGER}, #{pageAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.chinasoft.pojo.Page" >
+    insert into page
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pageId != null" >
+        page_id,
+      </if>
+      <if test="pageAddress != null" >
+        page_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pageId != null" >
+        #{pageId,jdbcType=INTEGER},
+      </if>
+      <if test="pageAddress != null" >
+        #{pageAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.chinasoft.pojo.PageExample" resultType="java.lang.Integer" >
+    select count(*) from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update page
+    <set >
+      <if test="record.pageId != null" >
+        page_id = #{record.pageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pageAddress != null" >
+        page_address = #{record.pageAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update page
+    set page_id = #{record.pageId,jdbcType=INTEGER},
+      page_address = #{record.pageAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.chinasoft.pojo.Page" >
+    update page
+    <set >
+      <if test="pageAddress != null" >
+        page_address = #{pageAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.chinasoft.pojo.Page" >
+    update page
+    set page_address = #{pageAddress,jdbcType=VARCHAR}
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectPageByUserId" resultType="edu.chinasoft.pojo.Page" parameterType="java.lang.Integer" >
+  
+  SELECT  `page`.* FROM 
+`user`,  `userrole` ,`role`,`rolepower`,
+`power`,`page`
+
+WHERE `user`.`user_id`= `userrole`.`user_id`
+AND  `userrole`.`role_id`=`role`.`role_id`
+AND `role`.`role_id`=`rolepower`.`role_id`
+AND  `rolepower`.`power_id`=`power`.`power_id`
+AND  `power`.`page_id`=`page`.`page_id`
+AND  `user`.`user_id`=#{userId}
+
+  </select>
+  
+  
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+SELECT DISTINCT `page`.* FROM 
+`user`,  `userrole` ,`role`,`rolepower`,
+`power`,`page`
+
+WHERE `user`.`user_id`= `userrole`.`user_id`
+
+AND  `userrole`.`role_id`=`role`.`role_id`
+AND `role`.`role_id`=`rolepower`.`role_id`
+AND  `rolepower`.`power_id`=`power`.`power_id`
+
+AND  `user`.`user_id`=#{userId}
+  </select>
+  
+  
+  
+  
+  
+  
+</mapper>
